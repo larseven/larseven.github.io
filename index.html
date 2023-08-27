@@ -1,33 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Text Updater</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snekkerprogram</title>
 </head>
+
 <body>
 
-<h1>Snekker hjelp</h1>
+  <h1>Spileberegner</h1>
 
-<label for="textInput">Lengde (mm): </label>
-<input type="text" id="lengde" placeholder="1200">
+  <label for="lengde">Lengde (mm): </label>
+  <input type="text" id="lengde" placeholder="Lengde i millimeter" , value="1200">
 
-<button id="updateButton">Beregn</button>
+  <button id="updateButton">Beregn</button>
 
-<div id="outputSection">
-  <p>...</p>
-</div>
+  <h3>Sammendrag:</h3>
+  <div id="sammendrag">
+    <p>...</p>
+  </div>
 
-<script>
-  const lengde = document.getElementById('lengde');
-  const updateButton = document.getElementById('updateButton');
-  const outputSection = document.getElementById('outputSection');
+  <h3 id="maal-heading">Del mål (cm):</h3>
+  <div id="maal">
+    <p>...</p>
+  </div>
 
-  updateButton.addEventListener('click', () => {
-    const newText = 'lengde: ' + textInput.value / 10 (cm);
-    outputSection.innerHTML = `<p>${newText}</p>`;
-  });
-</script>
+  <script>
+    const lengdeInput = document.getElementById('lengde');
+    const updateButton = document.getElementById('updateButton');
+    const sammendrag = document.getElementById('sammendrag');
+    const maal = document.getElementById('maal');
+    const sl = 48;
+    let nh, ns;
+
+
+
+    updateButton.addEventListener('click', () => {
+
+      const lengde = lengdeInput.value;
+
+      if (lengde <= 120) {
+        sammendrag.innerHTML = `<p>Lenden bør være i millimeter. Eksempel: 1200</p>`;
+        maal.innerHTML = `<p></p>`;
+      } else {
+        const hands = Math.floor(lengde / sl);
+        if (hands % 2 === 0) {
+          nh = hands / 2;
+          ns = hands / 2 - 1;
+        } else {
+          nh = (hands + 1) / 2;
+          ns = (hands - 1) / 2;;
+        }
+        const hl = (lengde - ns * sl) / nh;
+
+        let sammendragText = '';
+        sammendragText += "Antall hull: " + nh;
+        sammendragText += "<br>Antall spiler: " + ns;
+        sammendragText += "<br>Hull lengde: " + hl.toFixed(1) + " (cm)";
+        sammendragText += '<br>Total lengde: ' + lengde / 10 + ' (cm)';
+        sammendrag.innerHTML = `<p>${sammendragText}</p>`;
+
+        let maalText = '';
+        for (let i = 1; i <= ns; i++) {
+          maalText += "" + ((i * (sl + hl)) / 10).toFixed(1) + "<br>"
+        }
+
+        maal.innerHTML = `<p>${maalText}</p>`;
+      }
+
+
+    });
+  </script>
 
 </body>
+
 </html>
