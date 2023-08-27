@@ -1,8 +1,33 @@
-<html>
-  <head>
-    
-  </head>
-  <body>
-    <h1>Hello world!</h1>
-  </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Text Updater</title>
+</head>
+<body>
+
+<h1>Snekker hjelp</h1>
+
+<label for="textInput">Lengde (mm): </label>
+<input type="text" id="lengde" placeholder="1200">
+
+<button id="updateButton">Beregn</button>
+
+<div id="outputSection">
+  <p>...</p>
+</div>
+
+<script>
+  const lengde = document.getElementById('lengde');
+  const updateButton = document.getElementById('updateButton');
+  const outputSection = document.getElementById('outputSection');
+
+  updateButton.addEventListener('click', () => {
+    const newText = 'lengde: ' + textInput.value / 10 (cm);
+    outputSection.innerHTML = `<p>${newText}</p>`;
+  });
+</script>
+
+</body>
 </html>
